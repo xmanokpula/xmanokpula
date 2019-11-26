@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Finite Automata</title>
+
+    <!-- load stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">                <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">                                      <!-- Bootstrap style -->
+    <link rel="stylesheet" href="css/nfa.css">                          
+
+</head>
+
+    <body>
+        
+        <div class="container">
+            <header class="tm-site-header">
+                <h1 class="tm-site-name">Finite State Automata</h1>
+                <p class="tm-site-description">An Introduction to <br>Theory of Computation</p>
+                
+                <nav class="navbar navbar-expand-md tm-main-nav-container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#tmMainNav" aria-controls="tmMainNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fa fa-bars"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse tm-main-nav" id="tmMainNav">
+                        <ul class="nav nav-fill tm-main-nav-ul">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="DFA.html">DFA</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#">NFA</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                
+            </header>
+            
+            <div class="tm-main-content">
+                <section class="tm-margin-b-l">
+                    <header>
+                        <h2 class="tm-blue-text">Non-Deterministic Finite Automata</h2>    
+                    </header>
+
+                    <!-- Deterministic -->
+                    <div href="#" class="nondeterministic">
+                        <p align="justify"><b>Non-Deterministic Finite Automata</b> (NFA) - from the word <i>non-deterministic</i>, this means that it can be in, and transition to, "multiple states" at once depending on the given input. In NFA, there might be several possible final states that could result from reading a given string of inputs; as long as at least one of them is a final state, then the string is accepted.<br><br>Now that we know a NFA may transition to multiple state at a time, then it is obvious that the transition function of a NFA is different from DFA which can be defined as δ: Q x ∑→ 2 ^ Q. This means that we take the result state of a transition from the power set of Q, not just from the element of set Q itself. <b>Power set</b> means "the set of all subsets of a given set", for example we have Q = {A,B,C}, the Power set of Q or P(Q) = {{∅},{A},{B},{C},{A,B},{A,C},{B,C},{A,B,C}}.<br><br>
+                        <b>NFA and Epsilon</b> - the epsilon (ε) means a state going to another state without any input. This can only happen if the current state has ε-transition to another state/s. By default, every state has an ε-transition on itself. ε-closure of a state or ε-closure(Q) is the set of all ε-transition or the set of all states where Q can transition to without any input.</p>
+
+                        <h4 class="tm-main-title">Graphical Representation of NFA</h4>
+                        <ol>
+                            <li>The states are represented by vertices (circles).</li>
+                            <li>The arc or arrow labeled with input/s or ε show the transitions.</li>
+                            <li>The initial state is marked with plain arrow.</li>
+                            <li>The final state/s are marked by double circle.</li>
+                        </ol>
+
+                        <div class="examples">
+                            <h5 class="tm-main-title">Example 1:</h5>
+                            <p>Problem: Create a NFA with ∑ = {0, 1} that accepts all strings ending with '01'. <br>
+                               Let:
+                               Q = {A, B, C} <br>
+                               ∑ = {0, 1} <br>
+                               q = {A} <br>
+                               F = {C}
+                            </p>
+                            <p id="example1">Transition Table:</p>
+                            <div class="table">
+                                <table class="table-example1">
+                                    <tr>
+                                        <th id="hide"></th>
+                                        <th>∑ = 0</th>
+                                        <th>∑ = 1</th>
+                                        <th>ε</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Q = A</th>
+                                        <td>A,B</td>
+                                        <td>A</td>
+                                        <td>A</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Q = B</th>
+                                        <td></td>
+                                        <td>C</td>
+                                        <td>B</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Q = C</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td>C</td>
+                                    </tr>
+                                </table>    
+                            </div>
+
+                            <p>Transition Diagram: </p>
+                            <div class="diagram1" >
+                                <div class="States">
+                                    <!-- Initial State Vertex -->
+                                    <svg width="120px" height="40px" class="initial" id="initial" font-size="12">
+                                      <defs>
+                                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,6 L9,3 z" fill="black"/>
+                                        </marker>
+                                      </defs>
+                                      <line x1="0" y1="20" x2="40" y2="20" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+                                      <text x="4" y="15">Start</text>
+                                    </svg>
+
+                                    <!-- State A input 0 Vertex -->
+                                    <svg width="120px" height="40px" class="SA-0" font-size="12">
+                                      <defs>
+                                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+                                        </marker>
+                                      </defs>
+                                      <line x1="0" y1="20" x2="80" y2="20" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+                                      <text x="40" y="15">0</text>
+                                    </svg>
+
+                                    <!-- State A input 0,1 Vertex -->
+                                    <svg width="120px" height="40px" class="SA-01" font-size="12">
+                                      <defs>
+                                        <marker id="rarrow" markerWidth="10" markerHeight="10" refX="2" refY="4"  markerUnits="strokeWidth">
+                                          <path d="M0,0 L2,4 4,0 z" fill="black" stroke="black" stroke-width="1"/>
+                                        </marker>
+                                      </defs>
+                                      <path d="M 10 35 A16,16 0 1 1 35,26" stroke="black" stroke-width="2" fill="none" marker-end="url(#rarrow)"/>
+                                      <text x="10" y="25">0,1</text>
+                                    </svg>
+
+                                    <!-- State B input 0 Vertex -->
+
+                                    <!-- State B input 1 Vertex -->
+                                    <svg width="120px" height="40px" class="SB-1" font-size="12">
+                                      <defs>
+                                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+                                        </marker>
+                                      </defs>
+                                      <line x1="0" y1="20" x2="80" y2="20" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+                                      <text x="40" y="15">1</text>
+                                    </svg>
+
+                                    <!-- State C input 0,1 Vertex -->
+                                    
+
+                                    <!-- Verteces -->
+                                    <div class="State" id="s-a">A</div>
+                                    <div class="State" id="s-b">B</div>
+                                    <div class="State" id="s-c">C</div>
+                                </div>
+
+
+                                <div class="l1"><p id="label1"></p></div>
+                                <button class="simulate-btn" id="run" title="Run Diagram" onclick="simulate('inputstring', 'label1')">Simulate</button>
+                                <button class="simulate-btn" id="stop" title="Stop Simulation" onclick="stop('inputstring', 'label1')">Stop</button>
+                                <form>
+                                    <input type="text" id="inputstring" name="string" placeholder="Try it here" onkeypress="return keypresshandler(event)"/>
+                                </form>
+                            </div>
+                            <!-- end example1 -->
+
+                            <h5 class="tm-main-title" id="example2">Example 2:</h5>
+                            <p>Problem: Create a DFA with ∑ = {0, 1} that accepts all strings ENDING with '01'. <br>
+                               Let:
+                               Q = {A, B, C} <br>
+                               ∑ = {0, 1} <br>
+                               q = {A} <br>
+                               F = {C}
+                            </p>
+                            <p>Transition Table:</p>
+                            <div class="table">
+                                <table class="table-example1">
+                                    <tr>
+                                        <th id="hide"></th>
+                                        <th>∑ = 0</th>
+                                        <th>∑ = 1</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Q = A</th>
+                                        <td>B</td>
+                                        <td>A</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Q = B</th>
+                                        <td>B</td>
+                                        <td>C</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Q = C</th>
+                                        <td>B</td>
+                                        <td>A</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <p>Transition Diagram: </p>
+                            <div class="diagram1">
+                                <div class="States">
+                                    <!-- Initial State Vertex -->
+                                    <svg width="120px" height="40px" class="initial2" id="initial" font-size="12">
+                                      <defs>
+                                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,6 L9,3 z" fill="black"/>
+                                        </marker>
+                                      </defs>
+                                      <line x1="0" y1="20" x2="40" y2="20" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+                                      <text x="4" y="15">Start</text>
+                                    </svg>
+
+                                    <!-- State A input 0 Vertex -->
+                                    <svg width="120px" height="40px" class="SA-1-0" font-size="12">
+                                      <defs>
+                                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+                                        </marker>
+                                      </defs>
+                                      <line x1="0" y1="20" x2="80" y2="20" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+                                      <text x="40" y="15">0</text>
+                                    </svg>
+
+                                    <!-- State A input 1 Vertex -->
+                                    <svg width="120px" height="40px" class="SA-0-1" font-size="12">
+                                      <defs>
+                                        <marker id="rarrow" markerWidth="10" markerHeight="10" refX="2" refY="4"  markerUnits="strokeWidth">
+                                          <path d="M0,0 L2,4 4,0 z" fill="black" stroke="black" stroke-width="1"/>
+                                        </marker>
+                                      </defs>
+                                      <path d="M 10 35 A16,16 0 1 1 35,26" stroke="black" stroke-width="2" fill="none" marker-end="url(#rarrow)"/>
+                                      <text x="15" y="25">1</text>
+                                    </svg>
+
+                                    <!-- State B input 0 Vertex -->
+                                    <svg width="120px" height="40px" class="SB-1-0" font-size="12">
+                                      <defs>
+                                        <marker id="rarrow" markerWidth="10" markerHeight="10" refX="2" refY="4" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L2,4 4,0z" fill="black" stroke="black" stroke-width="1"/>
+                                        </marker>
+                                      </defs>
+                                      <path d="M 10 35 A16,16 0 1 1 35,26" stroke="black" stroke-width="2" fill="none" marker-end="url(#rarrow)"/>
+                                      <text x="15" y="25">0</text>
+                                    </svg>
+
+                                    <!-- State B input 1 Vertex -->
+                                    <svg width="120px" height="40px" class="SB-0-1" font-size="12">
+                                      <defs>
+                                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+                                        </marker>
+                                      </defs>
+                                      <line x1="0" y1="20" x2="80" y2="20" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+                                      <text x="40" y="15">1</text>
+                                    </svg>
+
+                                    <!-- State C input 0 Vertex -->
+                                    <svg width="300px" height="40px" class="SC-0" font-size="12">
+                                      <defs>
+                                        <marker id="barrow" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,4 4,2.5z" fill="black" stroke="black" stroke-width="1"/>
+                                        </marker>
+                                      </defs>
+                                      <path d="M 240 10 A4,1 0 1 1 135,20" stroke="black" stroke-width="2" fill="none" marker-end="url(#barrow)"/>
+                                      <text x="185" y="23">0</text>
+                                    </svg>
+
+                                    <!-- State C input 1 Vertex -->
+                                    <svg width="300px" height="40px" class="SC-1" font-size="12">
+                                      <defs>
+                                        <marker id="barrow" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,4 4,2.5z" fill="black" stroke="black" stroke-width="1"/>
+                                        </marker>
+                                      </defs>
+                                      <path d="M 280 0 A5,1 0 1 1 5,10" stroke="black" stroke-width="2" fill="none" marker-end="url(#barrow)"/>
+                                      <text x="130" y="28">1</text>
+                                    </svg>
+
+                                    <!-- Verteces -->
+                                    <div class="State" id="s-a2">A</div>
+                                    <div class="State" id="s-b2">B</div>
+                                    <div class="State" id="s-c2">C</div>
+                                </div>
+
+
+                                <div class="l1"><p id="label2"></p></div>
+                                <button class="simulate-btn" id="run" title="Run Diagram" onclick="simulate2('inputstring2', 'label2')">Simulate</button>
+                                <button class="simulate-btn" id="stop" title="Stop Simulation" onclick="stop2('inputstring2', 'label2')">Stop</button>
+                                <form>
+                                    <input type="text" id="inputstring2" name="string" placeholder="Try it here" onkeypress="return keypresshandler(event)"/>
+                                </form>
+                            </div>
+                            <!-- end example2 -->
+
+                            <h5 class="tm-main-title" id="example3">Example 3:</h5>
+                            <p>Problem: Create a DFA with ∑ = {0, 1} that accepts all strings that STARTS with '10'. <br>
+                               Let:
+                               Q = {A, B, C} <br>
+                               ∑ = {0, 1} <br>
+                               q = {A} <br>
+                               F = {C}
+                            </p>
+                            <p>Transition Table:</p>
+                            <div class="table">
+                                <table class="table-example1">
+                                    <tr>
+                                        <th id="hide"></th>
+                                        <th>∑ = 0</th>
+                                        <th>∑ = 1</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Q = A</th>
+                                        <td>D</td>
+                                        <td>B</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Q = B</th>
+                                        <td>C</td>
+                                        <td>D</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Q = C</th>
+                                        <td>C</td>
+                                        <td>C</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Q = D</th>
+                                        <td>D</td>
+                                        <td>D</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <p>Transition Diagram: </p>
+                            <div class="diagram1">
+                                <div class="States">
+                                    <!-- Initial State Vertex -->
+                                    <svg width="120px" height="40px" class="initial3" id="initial" font-size="12">
+                                      <defs>
+                                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,6 L9,3 z" fill="black"/>
+                                        </marker>
+                                      </defs>
+                                      <line x1="0" y1="20" x2="40" y2="20" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+                                      <text x="4" y="15">Start</text>
+                                    </svg>
+
+                                    <!-- State A input 1 Vertex -->
+                                    <svg width="120px" height="40px" class="SA-1-3" font-size="12">
+                                      <defs>
+                                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+                                        </marker>
+                                      </defs>
+                                      <line x1="0" y1="20" x2="80" y2="20" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+                                      <text x="40" y="15">1</text>
+                                    </svg>
+
+                                    <!-- State A input 0 Vertex -->
+                                    <svg width="120px" height="100px" class="SA-0-3" font-size="12">
+                                      <defs>
+                                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+                                        </marker>
+                                      </defs>
+                                      <line x1="0" y1="20" x2="40" y2="50" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+                                      <text x="25" y="35">0</text>
+                                    </svg>
+
+                                    <!-- State B input 1 Vertex -->
+                                    <svg width="300px" height="100px" class="SB-1-3" font-size="12">
+                                      <defs>
+                                        <marker id="barrow" markerWidth="10" markerHeight="10" refX="0" refY="2" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,4 4,2.5z" fill="black" stroke="black" stroke-width="1"/>
+                                        </marker>
+                                      </defs>
+                                      <path d="M 240 10 A2,1 0 1 1 180, 60" stroke="black" stroke-width="2" fill="none" marker-end="url(#barrow)"/>
+                                      <text x="230" y="55">1</text>
+                                    </svg>
+
+                                    <!-- State B input 0 Vertex -->
+                                    <svg width="120px" height="40px" class="SB-0-3" font-size="12">
+                                      <defs>
+                                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+                                        </marker>
+                                      </defs>
+                                      <line x1="0" y1="20" x2="80" y2="20" stroke="#000" stroke-width="2" marker-end="url(#arrow)" />
+                                      <text x="40" y="15">0</text>
+                                    </svg>
+
+                                    <!-- State C input 0,1 Vertex -->
+                                    <svg width="120px" height="40px" class="SC-3" font-size="12">
+                                      <defs>
+                                        <marker id="rarrow" markerWidth="10" markerHeight="10" refX="2" refY="4" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L2,4 4,0z" fill="black" stroke="black" stroke-width="1"/>
+                                        </marker>
+                                      </defs>
+                                      <path d="M 10 35 A16,16 0 1 1 35,26" stroke="black" stroke-width="2" fill="none" marker-end="url(#rarrow)"/>
+                                      <text x="10" y="25">0,1</text>
+                                    </svg>
+
+                                    <!-- State D input 0,1 Vertex -->
+                                    <svg width="120px" height="40px" class="SD-3" font-size="12">
+                                      <defs>
+                                        <marker id="rarrow" markerWidth="10" markerHeight="10" refX="2" refY="4" orient="auto" markerUnits="strokeWidth">
+                                          <path d="M0,0 L2,4 4,0z" fill="black" stroke="black" stroke-width="1"/>
+                                        </marker>
+                                      </defs>
+                                      <path d="M 10 35 A16,16 0 1 1 35,26" stroke="black" stroke-width="2" fill="none" marker-end="url(#rarrow)"/>
+                                      <text x="10" y="25">0,1</text>
+                                    </svg>
+
+                                    <!-- Verteces -->
+                                    <div class="State" id="s-a3">A</div>
+                                    <div class="State" id="s-b3">B</div>
+                                    <div class="State" id="s-c3">C</div>
+                                    <div class="State" id="s-d3">D</div>
+                                </div>
+
+
+                                <div class="l1"><p id="label3"></p></div>
+                                <button class="simulate-btn" id="run" title="Run Diagram" onclick="simulate3('inputstring3', 'label3')">Simulate</button>
+                                <button class="simulate-btn" id="stop" title="Stop Simulation" onclick="stop3('inputstring3', 'label3')">Stop</button>
+                                <form>
+                                    <input type="text" id="inputstring3" name="string" placeholder="Try it here" onkeypress="return keypresshandler(event)"/>
+                                </form>
+                            </div>
+                            <!-- end example3 -->
+                        <!-- end examples -->
+                        </div>
+                    </div>
+
+                </section>
+
+            </div>
+
+            <footer>
+                Made by: Arvin Jay Nadal | Adriane Cortez
+            </footer>    
+        </div>
+        
+        <!-- load JS files -->
+       <!--
+        <script>
+            //document.getElementById("s-a").style.backgroundColor = "red";
+            var x = document.getElementById("s-a");
+            x.textContent = "2";
+            console.log(x);
+            /*var x = document.getElementById("arrow1");
+            x.style.fill = "red";
+            console.log(x);*/
+        </script>
+        -->
+        <script src="js/dfa.js"></script>
+        <script src="js/jquery-1.11.3.min.js"></script>         <!-- jQuery (https://jquery.com/download/) -->
+        <script src="js/popper.min.js"></script>                <!-- Popper (https://popper.js.org/) -->
+        <script src="js/bootstrap.min.js"></script>             <!-- Bootstrap (https://getbootstrap.com/) -->
+        
+</body>
+</html>
